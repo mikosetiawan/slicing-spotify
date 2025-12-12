@@ -1,0 +1,45 @@
+name: spotify
+description: "A new Flutter project."
+publish_to: 'none'
+
+version: 1.0.0+1
+
+environment:
+  sdk: ^3.11.0-113.0.dev
+
+dependencies:
+  flutter:
+    sdk: flutter
+  cupertino_icons: ^1.0.8
+  flutter_native_splash: ^2.4.7
+  flutter_launcher_icons: ^0.14.4
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^6.0.0
+
+flutter:
+  uses-material-design: true
+  assets:
+    - assets/
+
+# ============================================
+# PENTING: flutter_native_splash HARUS DI SINI
+# ============================================
+
+flutter_native_splash:
+  color: "#FFFFFF"
+  image: assets/icon-splash.png
+
+  color_dark: "#000000"
+  image_dark: assets/icon-splash.png
+
+  android: true
+  ios: true
+  web: false
+
+flutter_icons:
+  android: true
+  ios: true
+  image_path: "assets/icon-app.png"
