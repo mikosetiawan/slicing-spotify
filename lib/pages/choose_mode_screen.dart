@@ -7,102 +7,133 @@ class ChooseModeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // Set responsive H/W
-    final screenHeight = MediaQuery.of(context).size.height;
+    final size = MediaQuery.of(context).size;
 
     return Scaffold(
-      body: Stack(
-        children: [
-          Positioned.fill(
-            child: Image.asset("assets/bg-screen-2.png", fit: BoxFit.cover),
-          ),
-
-          Padding(
-            padding: const EdgeInsets.only(top: 50),
-            child: Align(
-              alignment: Alignment.topCenter,
-              child: Image.asset("assets/spotify.png", width: 196),
+      body: SafeArea(
+        child: Stack(
+          children: [
+            // BACKGROUND
+            Positioned.fill(
+              child: Image.asset("assets/bg-screen-2.png", fit: BoxFit.cover),
             ),
-          ),
 
-          Padding(
-            padding: EdgeInsets.symmetric(horizontal: 30.0, vertical: 50.0),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.end,
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                SizedBox(height: screenHeight * 0.45),
-                Text(
-                  "Choose Mode",
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 25,
-                    fontWeight: FontWeight.w700,
-                  ),
-                ),
-                SizedBox(height: 21),
-                Padding(
+            // LOGO
+            Positioned(
+              top: 50,
+              left: 0,
+              right: 0,
+              child: Center(
+                child: Image.asset("assets/spotify.png", width: 196),
+              ),
+            ),
+
+            // CONTENT
+            SingleChildScrollView(
+              physics: const BouncingScrollPhysics(),
+              child: ConstrainedBox(
+                constraints: BoxConstraints(minHeight: size.height),
+                child: Padding(
                   padding: const EdgeInsets.symmetric(
-                    horizontal: 50.0,
-                    vertical: 25.0,
+                    horizontal: 30.0,
+                    vertical: 50.0,
                   ),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
-                      Column(
-                        children: [
-                          Image.asset("assets/dark.png", width: 73),
-                          Text(
-                            "Dark Mode",
-                            style: TextStyle(color: Colors.white, fontSize: 18),
-                          ),
-                        ],
+                      // Spacer tetap desain sama
+                      SizedBox(height: size.height * 0.45),
+
+                      const Text(
+                        "Choose Mode",
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 25,
+                          fontWeight: FontWeight.w700,
+                        ),
                       ),
-                      Column(
-                        children: [
-                          Image.asset("assets/light.png", width: 73),
-                          Text(
-                            "Light Mode",
-                            style: TextStyle(color: Colors.white, fontSize: 18),
+                      const SizedBox(height: 21),
+
+                      // Row Mode (Dark / Light)
+                      Padding(
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 50.0,
+                          vertical: 25.0,
+                        ),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Column(
+                              children: [
+                                Image.asset("assets/dark.png", width: 73),
+                                const SizedBox(height: 8),
+                                const Text(
+                                  "Dark Mode",
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 18,
+                                  ),
+                                ),
+                              ],
+                            ),
+                            Column(
+                              children: [
+                                Image.asset("assets/light.png", width: 73),
+                                const SizedBox(height: 8),
+                                const Text(
+                                  "Light Mode",
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 18,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
+                      ),
+
+                      const SizedBox(height: 30),
+
+                      GestureDetector(
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) =>
+                                  const RegisterOrSignScreen(),
+                            ),
+                          );
+                        },
+                        child: Container(
+                          padding: const EdgeInsets.symmetric(
+                            vertical: 30,
+                            horizontal: 25,
                           ),
-                        ],
+                          decoration: BoxDecoration(
+                            color: Themes.secondaryColor,
+                            borderRadius: BorderRadius.circular(30),
+                          ),
+                          child: const Text(
+                            "Continue",
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.white,
+                            ),
+                          ),
+                        ),
                       ),
                     ],
                   ),
                 ),
-                SizedBox(height: 30),
-                GestureDetector(
-                  onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => RegisterOrSignScreen(),
-                      ),
-                    );
-                    print("Continue!");
-                  },
-                  child: Container(
-                    padding: EdgeInsets.symmetric(vertical: 30, horizontal: 25),
-                    decoration: BoxDecoration(
-                      color: Themes.secondaryColor,
-                      borderRadius: BorderRadius.circular(30),
-                    ),
-                    child: Text(
-                      "Continue",
-                      style: TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.white,
-                      ),
-                      textAlign: TextAlign.center,
-                    ),
-                  ),
-                ),
-              ],
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
